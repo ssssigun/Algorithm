@@ -30,7 +30,7 @@ class Solution {
             if(temp>0){
                 answer.add(temp);
                 cnt+=temp;
-                temp=0;
+                temp=0; 
             }
         }
         return answer;
