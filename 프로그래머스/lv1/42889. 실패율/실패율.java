@@ -37,10 +37,6 @@ class Solution {
             return o2[0] == o1[0] ? Double.compare(o1[0],o2[0]) : Double.compare(o2[1], o1[1]);
         });
         
-        for(int i=0; i<fail.length; i++){
-            System.out.println(fail[i][0]+ " "+fail[i][1]);
-        }
-        
         //담기
         for(int i=0; i<ans.length; i++){
             ans[i] = (int)fail[i][0];
