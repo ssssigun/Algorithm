@@ -14,7 +14,7 @@ class Solution {
         //큐에 값이 없을 때까지
         while(!que.isEmpty()){
             x = que.peek()[0];
-            y = que.peek()[1];
+            y = que.peek()[1]; 
             que.poll();
             for(int i=0; i<4; i++){
                 int cx = x + dx[i];
