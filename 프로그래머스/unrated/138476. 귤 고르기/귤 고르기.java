@@ -25,7 +25,7 @@ class Solution {
         Collections.sort(list, Collections.reverseOrder());
         for(int i=0; i<list.size(); i++){
             if(k<=0){
-                break;
+                break; 
             }
             k-=list.get(i);
             answer++;
