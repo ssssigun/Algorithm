@@ -14,12 +14,12 @@ public class Main{
     	BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
     	int N = Integer.parseInt(br.readLine());
     	// 정답용 배열
-    	int answer = 0;
+    	long answer = 0;
     	StringTokenizer st;
     	// 거리 배열
-    	int[] dis = new int[N-1]; 
+    	long[] dis = new long[N-1]; 
 		// 도시 배열
-    	int[] city = new int[N]; 
+    	long[] city = new long[N]; 
     	// 거리 배열 입력 받기
     	st = new StringTokenizer(br.readLine());
     	for(int i=0; i<N-1; i++){
@@ -31,7 +31,7 @@ public class Main{
     		city[i] = Integer.parseInt(st.nextToken());
     	}
     	// 이전 도시 기름값 저장
-    	int last = city[0];
+    	long last = city[0];
     	// 기름 값 구하기
     	for(int i=0; i<N-1; i++) {
     		if(last>city[i]) {
