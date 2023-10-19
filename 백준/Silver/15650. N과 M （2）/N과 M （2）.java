@@ -1,32 +1,39 @@
 /*
- * 1. N개의 자연수, 자연수 M
- * 2. 1과 다른 점은 중복이 없어야한다.
- * 3. 오른차순으로 print
- * */
+ * 1. 백트래킹 문제 (재귀 사용)
+ * 2. 첫째 줄엔 자연수 N과 M
+ * 3. 조건을 만족하는 수열 출력 (중복 x)
+*/
 import java.util.*;
 import java.io.*;
 public class Main{
-	// 정답 배열
-	public static int[] arr;
-	// N, M
-	public static int N;
-	public static int M;
 	// 출력
-	public static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-	// dfs
-	public static void dfs(int fir,int depth) throws IOException{
-		// M개 선택되면 출력
+	static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+	// 자연수 종류
+	static int N;
+	// 수열의 길이
+	static int M;
+	// 방문처리
+	static boolean[] visited;
+	// 프린트 배열
+	static int[] arr;
+	// 백트래킹 함수
+	static void back(int num, int depth) throws IOException{
+		// 수열의 길이가 M이면 출력
 		if(depth == M) {
-			for(int i=0; i<arr.length-1; i++) {
-				bw.write(arr[i]+ " ");
+			for(int i=1; i<arr.length-1; i++) {
+				bw.write(arr[i]+" ");
 			}
 			bw.write(arr[arr.length-1]+"\n");
 			bw.flush();
-			return;
-		}
-		for(int i=fir; i<N; i++) {
-				arr[depth] = i + 1;
-				dfs(i+1, depth + 1);
+		}else {
+			for(int i=num; i<=N; i++) {
+				if(!visited[i]) {
+					visited[i] = true;
+					arr[depth+1] = i;
+					back(i+1, depth+1);
+					visited[i] = false;
+				}
+			}
 		}
 	}
     public static void main(String[] args) throws IOException{
@@ -36,10 +43,10 @@ public class Main{
     	// N과 M 입력 받기
     	N = Integer.parseInt(st.nextToken());
     	M = Integer.parseInt(st.nextToken());
-    	// 배열 크기 및 값 초기화
-    	arr = new int[M];
-    	// dfs 실행
-    	dfs(0, 0);
-    	
+    	// 배열 초기화
+    	visited = new boolean[N+1];
+    	arr = new int[M+1];
+    	// 출력하기
+    	back(1,0);
     }
 }
