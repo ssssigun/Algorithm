@@ -5,34 +5,34 @@
  * */
 import java.io.*;
 import java.util.*;
-public class Main {
-
-    public static void main(String[] args) throws IOException {
+public class Main{
+    public static void main(String[] args) throws IOException{
     	// 선언
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
-        HashMap<String, Integer> map = new HashMap<>();
-
-        int size = 0;
-        // 입력 받기
-        while(true){
-            String word = br.readLine();
-
-            if(word == null || word.equals("")) break;
-
-            map.put(word, map.containsKey(word) ? map.get(word) + 1 : 1);
-            size++;
-        }
-        
-        Object[] str = map.keySet().toArray();
-        Arrays.sort(str); // 정렬
-        // 반올림 및 숫자 포매팅
-        for(Object obj:str){
-            String key = (String) obj;
-            String value = String.format("%.4f", (map.get(key) * 100.0f/ size));
-
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+    	HashMap<String,Integer> map = new HashMap<>();
+    	StringBuilder sb = new StringBuilder();
+    	int cnt = 0;
+    	// 입력 받기
+    	while(true) {
+    	    String temp = br.readLine();
+    	    if( temp == null || temp.equals("")) {
+    	    	break;
+    	    }
+      		map.put(temp, map.getOrDefault(temp, 0)+1);
+    		cnt++;
+    	}
+    	Object[] str = map.keySet().toArray();
+    	Arrays.sort(str); // 사전 순 정렬
+    	// 분포수 계산
+    	for( Object obj :str) {
+    		String key = (String)obj;
+            String value = String.format("%.4f", (map.get(key) * 100.0f/ cnt));
             sb.append(key).append(' ').append(value).append('\n');
-        }
-        System.out.print(sb); // 출력
+    	}
+    		
+    	//출력
+		bw.write(sb.toString());
+    	bw.flush();
     }
 }
