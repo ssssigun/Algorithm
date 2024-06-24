@@ -18,12 +18,13 @@ class Road implements Comparable<Road>{ // 도로 객체
     }
     @Override
     public int compareTo(Road o1){ // 비교함수 (우선 순위 큐 사용을 위함)
-        return this.v == o1.v ? this.l - o1.l : this.v - o1.v;
+        return this.l - o1.l;
     }
 }
 class Solution {
     public static List<List<Road>> list = new ArrayList<>();
     public static int[] dp;
+    public static boolean[] visited;
     public int solution(int N, int[][] road, int K) {
         int ans = 0; // 정답
         for(int i=0; i<=N; i++){ // 노드 배열 초기화
@@ -31,6 +32,7 @@ class Solution {
         }
         
         dp = new int[N+1]; // dp 배열 초기화
+        visited = new boolean[N+1];
         Arrays.fill(dp, Integer.MAX_VALUE);
         
         for(int i=0; i<road.length; i++){ // 노드에 값 추가
@@ -57,7 +59,11 @@ class Solution {
         dp[1] = 0;
         while(!pq.isEmpty()){
             Road r = pq.poll();
-
+            
+            if(visited[r.v]){
+                continue;
+            }
+            visited[r.v] = true;
             for(Road road : list.get(r.v)){
                 if(dp[road.v] > r.l + road.l){
                     dp[road.v] = r.l + road.l;
