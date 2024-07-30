@@ -15,18 +15,9 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-class Study implements Comparable<Study>{ // 조건 정렬을 위한 클래스
-    String s;
-    Study(String s){
-        this.s = s;
-    }
-    @Override
-    public int compareTo(Study o1){
-        return this.s.length() ==  o1.s.length() ? this.s.compareTo(o1.s) : s.length() - o1.s.length();
-    }
-}
 class Main {
     public static void main(String[] arg) throws IOException {
         // 선언
@@ -34,7 +25,7 @@ class Main {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         // 입력 받기
         int N = Integer.parseInt(br.readLine()); // 공부 N개
-        List<Study> list = new ArrayList<>(); // 공부 기록 리스트
+        List<String> list = new ArrayList<>(); // 공부 기록 리스트
         List<Integer> boj = new ArrayList<>(); // 백준 따로 저장
 
         for(int i=0; i<N; i++){ // 입력 받기
@@ -43,18 +34,23 @@ class Main {
                 String[] temp = input.split("/");
                 boj.add(Integer.parseInt(temp[1]));
             }else{
-                list.add(new Study(input));
+                list.add(input);
             }
         }
-        Collections.sort(list); // 정렬
+        Collections.sort(list, new Comparator<String> (){
+            @Override
+            public int compare(String o1, String o2){
+                return o1.length() == o2.length() ? o1.compareTo(o2) : o1.length() - o2.length();
+            }
+        }); // 정렬
         Collections.sort(boj); // 백준 문제도 번호순으로 저장
 
         for(int i=0; i<boj.size(); i++){ // 뒤에 백준 링크 추가
-            list.add(new Study("boj.kr/" + boj.get(i)));
+            list.add("boj.kr/" + boj.get(i));
         }
         // 출력
         for(int i=0; i<list.size(); i++){
-            bw.write(list.get(i).s+"\n");
+            bw.write(list.get(i)+"\n");
         }
         bw.flush();
     }
